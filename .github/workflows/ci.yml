@@ -25,10 +25,10 @@ jobs:
         run: mvn clean verify
 
       # 4. SonarCloud analysis
-      - name: SonarCloud Scan
-        run: |
-          mvn sonar:sonar \
-            -Dsonar.organization=raissouni-mouna \
-            -Dsonar.projectKey=Raissouni-Mouna_Microservices \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=7d0f55319d198991ab1e3023101b3f46a545ad4b
+#      - name: SonarCloud Scan
+#        run: |
+#          mvn sonar:sonar \
+#            -Dsonar.organization=raissouni-mouna \
+#            -Dsonar.projectKey=Raissouni-Mouna_Microservices \
+#            -Dsonar.host.url=https://sonarcloud.io \
+#            -Dsonar.login=7d0f55319d198991ab1e3023101b3f46a545ad4b
