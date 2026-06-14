@@ -1,0 +1,48 @@
+#  Docker est un outil qui permet de packager une application avec ses dépendances sous forme d’image.
+#    Une image est construite à partir d’un Dockerfile.
+#    Docker Compose permet de définir et orchestrer plusieurs conteneurs (services) et de gérer leur communication via des réseaux Docker.
+
+services: #on décrit les differents conteneurs (services) de l'application , chaque services correspond a un conteneur
+  postgres:
+    container_name: postgres # nom important car les autre conteneur peut communiquer avec lui
+    #docker il cre automatiquement un réseau ou le nom du service devient le nom d'hote
+    image: postgres  # Image officielle PostgreSQL
+    environment:
+        POSTGRES_USER: mouna
+        POSTGRES_PASSWORD: password
+        PGDATA: /data/postgres  # Emplacement des données dans le conteneur
+    volumes:
+      - postgres:/data/postgres  # Volume persistant
+    ports:
+      - "5432:5432"  # Port hôte -> port conteneur
+    networks:
+      - postgres
+    restart: unless-stopped   # Redémarre automatiquement sauf si arrêté manuellement
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4  # Image officielle pgAdmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin_peepal@admin.com
+      PGADMIN_DEFAULT_PASSWORD: pwd_peepal
+      PGADMIN_CONFIG_SERVER_MODE: "False"  # Mode serveur désactivé pour l'accès direct
+    volumes:
+      - pgadmin:/var/lib/pgadmin  # Volume persistant pour pgAdmin
+    ports:
+      - "5050:80"  # Port hôte -> port conteneur
+    networks:
+        - postgres
+    restart:
+      unless-stopped
+networks:
+  postgres:
+    driver: bridge  # Type de réseau pour l'isolation des conteneurs
+
+volumes:
+  postgres:  # Volume persistant pour PostgreSQL
+  pgadmin:   # Volume persistant pour pgAdmin
+
+# docker compose up -d pour lancer les conteneurs en arrière-plan
+# docker ps pour voir les conteneurs en cours d'exécution
+
+

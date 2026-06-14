@@ -1,0 +1,20 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: fraud
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fraud
+    username: 'mouna'
+    password: 'password'
+  jpa: # ensemble des regles / contrat qui définissent comment une application java doit gerer les donnes
+    #java persistance api ( mapping objet table) opérations crud , relation entre table, requetes
+    properties:
+      hibernate: # object relationnel mapping c'est lui qui transforme des ligne de table en un objet java
+        # hibernate c'est l'implémentation de jpa , c'est lui qui éxécute les opérations sur la base de données
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql : true # update : met à jour le schéma de la base de données en fonction des entités JPA, create : crée le schéma à partir des entités JPA, create-drop : crée le schéma au démarrage et le supprime à l'arrêt, validate : valide le schéma existant par rapport aux entités JPA, none : aucune action sur le schéma
+
